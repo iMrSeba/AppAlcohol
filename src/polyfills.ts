@@ -53,3 +53,5 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import 'web-animations-js';  // Run npm install --save web-animations-js.

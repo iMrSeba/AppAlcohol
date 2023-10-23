@@ -1,29 +1,42 @@
-/* Estilos para la barra de herramientas (toolbar) */
-.toolbar-green {
-    --background: green; /* Cambia el color de fondo de la barra de herramientas a verde */
-    color: white; /* Cambia el color del texto a blanco */
-  }
-  
-  /* Estilos para el ion-card (fondo verde) */
-  .card-green {
-    background-color: green; /* Cambia el color de fondo del ion-card a verde */
-    color: white; /* Cambia el color del texto a blanco */
-  }
-  
-  /* Estilos generales para el fondo celeste de la página */
-  ion-content {
-    --background: lightblue; /* Cambia el color de fondo del ion-content a celeste claro */
-}
-ion-button.login-button {
-    --background: darkgreen; /* Cambia el color de fondo del botón a verde oscuro */
-    color: white; /* Cambia el color del texto a blanco */
-  }
-  
-  /* Estilos para el botón "Register" */
-ion-button.register-button {
-    --background: darkgreen; /* Cambia el color de fondo del botón a verde oscuro */
-    color: white; /* Cambia el color del texto a blanco */
+.toolbar-dark {
+  --background: #282c35;
+  --color: #ffffff;
 }
 
+.card-dark {
+  --background: #333842;
+  --color: #ffffff;
+}
 
-  
+.content-dark {
+  --ion-background-color: #1a1a1d;
+}
+
+.login-button-dark {
+  --background: #4a4d56;
+  --color: #ffffff;
+  margin-top: 30px;
+}
+
+.register-button-dark {
+  --color: #4a4d56;
+}
+
+.input-dark {
+  --background: rgba(255, 255, 255, 0.1);
+  --color: #ffffff;
+  border-radius: 15px;  // Adding rounded edges to input fields
+}
+
+.text-light {
+  color: #ffffff;
+}
+
+.rounded-button {
+  border-radius: 30px;
+  text-align: center; 
+}
+
+.rounded-input {  // New class for rounded input containers
+  --border-radius: 15px;
+}

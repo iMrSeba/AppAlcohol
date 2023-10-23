@@ -3,27 +3,44 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { environment } from 'src/environments/environment';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
+  animations: [
+    trigger('fade', [
+      state('void', style({ opacity: 0 })),
+      transition('void <=> *', [animate('300ms ease-in-out')])
+    ])
+  ]
 })
 export class RegisterPage implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
-
   username: string = '';
   password: string = '';
+  profileImage: any = null;
   confirmPassword: string = '';
-  email:string = '';
-  approved:boolean = false;
+  email: string = '';
+  birthdate: Date | null = null; 
+  approved: boolean = false;
   connected: boolean = false;
 
   isRegistering: boolean = false;
   showProgressBar: boolean = false;
 
-  register(){
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
+
+  register() {
+    if (this.birthdate) {
+      const age = this.calculateAge(this.birthdate);
+      if (age < 18) {
+          console.log("Debes tener al menos 18 años para registrarte.");
+          return;  // Stop further execution
+      }
+    }
+  
     if(this.username != '' && this.password != '' && this.confirmPassword != '' && this.email != ''){
       this.isRegistering  = true;
       this.showProgressBar= true;
@@ -33,7 +50,7 @@ export class RegisterPage implements OnInit {
         password: this.password,
         email: this.email,
         approved: this.approved,
-        connected:this.connected
+        connected: this.connected
       };
       
       if(this.password === this.confirmPassword){
@@ -95,12 +112,23 @@ export class RegisterPage implements OnInit {
       this.isRegistering  = false;
       this.showProgressBar= false;
     }
-    
-  }
-  goToLogin(){
-    this.router.navigate(['/login']);
-  }
-  ngOnInit() {
   }
 
+  private calculateAge(birthDate: Date): number {
+    let today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let month = today.getMonth() - birthDate.getMonth();
+
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  ngOnInit() {
+  }
 }

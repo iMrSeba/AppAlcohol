@@ -1,46 +1,49 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="toolbar-green">
+  <ion-toolbar class="toolbar-dark">
     <ion-title class="ion-text-center">Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="content-black"> 
-  <div class="ion-align-items-center ion-justify-content-center" style="height: calc(100vh - 200px); margin-top: 200px;">
-    <ion-card class="card-green"> 
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Username</ion-label>
-          <ion-input type="text" [(ngModel)]="username"></ion-input>
-        </ion-item>
+<ion-content [fullscreen]="true" class="content-dark" padding>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center" style="min-height: calc(100vh - 200px); margin-top: 150px;">
+      <ion-col size-md="6" size-lg="5" size-xl="4" size="10">
+        <ion-card class="card-dark" @fade>
+          <ion-card-content>
+            <ion-item class="rounded-input">  <!-- Updated line -->
+              <ion-label position="floating" class="text-light">Usuario</ion-label>
+              <ion-input type="text" class="input-dark" [(ngModel)]="username"></ion-input>
+            </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" [(ngModel)]="password"></ion-input>
-        </ion-item>
+            <ion-item class="rounded-input">  <!-- Updated line -->
+              <ion-label position="floating" class="text-light">Contraseña</ion-label>
+              <ion-input type="password" class="input-dark" [(ngModel)]="password"></ion-input>
+            </ion-item>
 
-        <ion-button
-        class="login-button"
-        expand="full"
-        (click)="login()"
-        [disabled]="isLoggingIn" 
-      >
-        Log In
-      </ion-button>
-    
-      <!-- Barra de carga (ngIf se usa para mostrar/ocultar) -->
-      <ion-progress-bar *ngIf="showProgressBar"></ion-progress-bar>
-      </ion-card-content>
-    </ion-card>
-    <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="auto">
-        <p>You do not have an account?</p>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-button class="register-button" fill="clear" (click)="register()">Register</ion-button>
+            <ion-button
+              [@buttonClickFeedback]="isButtonClicked ? 'clicked' : 'notClicked'"
+              (click)="login(); isButtonClicked = !isButtonClicked"
+              [disabled]="isLoggingIn"
+              class="login-button-dark rounded-button"
+              expand="full"
+            >
+              Ingresar
+            </ion-button>
+
+            <!-- Progress bar (ngIf is used to show/hide) -->
+            <ion-progress-bar *ngIf="showProgressBar" color="light"></ion-progress-bar>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-row class="ion-align-items-center ion-justify-content-center" style="margin-top: 20px;">
+          <ion-col size="auto">
+            <p class="text-light">¿No tienes una cuenta?</p>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-button class="register-button-dark rounded-button" fill="clear" (click)="register()">Registrar</ion-button>
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
-  </div>
+  </ion-grid>
 </ion-content>
-
-
-
