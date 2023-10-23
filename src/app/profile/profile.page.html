@@ -1,13 +1,29 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="mycolor">
-    <ion-title class="ion-text-center">Profile</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-center">Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding dark-background">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Profile</ion-title>
+    <ion-toolbar color="dark">
+      <ion-title size="large">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-avatar class="ion-margin-top ion-margin-bottom profile-avatar">
+    <img src="path_to_profile_image.jpg">
+  </ion-avatar>
+
+  <ion-text class="profile-name">
+    <h2>SK Neku</h2>
+  </ion-text>
+
+  <ion-list class="ion-margin-top profile-options-list">
+    <ion-item button detail lines="full" (click)="changePassword()">Cambiar Contraseña</ion-item>
+    <ion-item button detail lines="full" (click)="verifyEmail()">Verificar Correo</ion-item>
+    <ion-item button detail lines="full" (click)="changeAddress()">Cambiar Dirección</ion-item>
+    <ion-item button detail lines="full" (click)="enable2FA()">Habilitar 2FA</ion-item>
+    <ion-item button detail lines="full" (click)="logout()">Cerrar Sesión</ion-item>
+  </ion-list>
 </ion-content>
