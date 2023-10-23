@@ -22,6 +22,11 @@ export class HomePage implements OnInit {
     //acá se añaden más si es necesario
   ];
   public filteredDrinks: any[] = [];
+  public isGrid: boolean = true;
+
+    toggleView() {
+      this.isGrid = !this.isGrid;
+    }
 
   constructor() { }
 
@@ -30,11 +35,13 @@ export class HomePage implements OnInit {
   }
 
   filterDrinks() {
-    if (!this.searchTerm) {
-      this.filteredDrinks = this.drinks; // Si no hay término de búsqueda, mostrar todas las bebidas.
+    const searchTermLower = this.searchTerm.toLowerCase();
+  
+    if (!this.searchTerm.trim()) {
+      this.filteredDrinks = this.drinks; // If no search term, show all drinks.
     } else {
       this.filteredDrinks = this.drinks.filter(drink => {
-        return drink.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+        return drink.name.toLowerCase().includes(searchTermLower);
       });
     }
   }
