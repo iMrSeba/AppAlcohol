@@ -1,13 +1,103 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="ion-text-center">Home</ion-title>
+  <ion-toolbar class="toolbar-dark">
+    <ion-title class="ion-text-center">DrinkDelight</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="page-dark">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
+      <ion-title size="large">DrinkDelight</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Barra de Búsqueda con Filtros -->
+  <ion-searchbar class="searchbar-dark" placeholder="Buscar bebidas..." [(ngModel)]="searchTerm"></ion-searchbar>
+  
+  <ion-row class="ion-padding-top">
+    <ion-col size="3" size-md="4">
+      <ion-label>Filtrar por:</ion-label>
+    </ion-col>
+    <ion-col size="9" size-md="8">
+      <ion-select placeholder="Elegir filtro">
+        <ion-select-option value="name">Nombre</ion-select-option>
+        <ion-select-option value="category">Categoría</ion-select-option>
+        <ion-select-option value="price">Precio</ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+
+  <!-- Categorías -->
+  <ion-row class="ion-margin-top">
+    <ion-col>
+      <ion-button expand="full" fill="clear">Cervezas</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" fill="clear">Vinos</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" fill="clear">Licores</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" fill="clear">Cocteles</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" fill="clear">Sin alcohol</ion-button>
+    </ion-col>
+  </ion-row>
+
+<!-- Lista de Bebidas -->
+
+<!-- Cerveza -->
+<ion-card class="card-dark">
+  <img src="ruta_cerveza1_imagen.jpg" alt="Cerveza 1"/>
+  <ion-card-content>
+    <ion-card-title>Cerveza 1</ion-card-title>
+    <p>Fresca y refrescante. $4.500</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="card-dark">
+  <img src="ruta_cerveza2_imagen.jpg" alt="Cerveza 2"/>
+  <ion-card-content>
+    <ion-card-title>Cerveza 2</ion-card-title>
+    <p>Intensa con un toque amargo. $5.000</p>
+  </ion-card-content>
+</ion-card>
+
+<!-- Vino -->
+<ion-card class="card-dark">
+  <img src="ruta_vino1_imagen.jpg" alt="Vino 1"/>
+  <ion-card-content>
+    <ion-card-title>Vino 1</ion-card-title>
+    <p>Dulce y aromático. $12.000</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="card-dark">
+  <img src="ruta_vino2_imagen.jpg" alt="Vino 2"/>
+  <ion-card-content>
+    <ion-card-title>Vino 2</ion-card-title>
+    <p>Complejo con un final seco. $15.500</p>
+  </ion-card-content>
+</ion-card>
+
+<!-- Licores -->
+<ion-card class="card-dark">
+  <img src="ruta_licor1_imagen.jpg" alt="Licor 1"/>
+  <ion-card-content>
+    <ion-card-title>Licor 1</ion-card-title>
+    <p>Suave pero potente. $22.000</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="card-dark">
+  <img src="ruta_licor2_imagen.jpg" alt="Licor 2"/>
+  <ion-card-content>
+    <ion-card-title>Licor 2</ion-card-title>
+    <p>Fuerte y con carácter. $25.000</p>
+  </ion-card-content>
+</ion-card>
+
+
 </ion-content>

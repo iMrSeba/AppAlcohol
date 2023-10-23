@@ -1,0 +1,27 @@
+.page-dark {
+    --ion-background-color: #1a1a1d;
+    --ion-color-base: #ffffff;
+  }
+  
+  .toolbar-dark {
+    --background: #282c35;
+    --color: #ffffff;
+  }
+  
+  .searchbar-dark {
+    --background: rgba(255, 255, 255, 0.1);
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    --color: #ffffff;
+    --icon-color: #ffffff;
+    border-radius: 15px;
+    margin: 15px;
+  }
+  
+  .card-dark {
+    --background: #333842;
+    --color: #ffffff;
+    margin: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
