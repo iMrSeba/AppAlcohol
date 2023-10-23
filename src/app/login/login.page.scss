@@ -22,12 +22,6 @@
   --color: #4a4d56;
 }
 
-.input-dark {
-  --background: rgba(255, 255, 255, 0.1);
-  --color: #ffffff;
-  border-radius: 15px;  // Adding rounded edges to input fields
-}
-
 .text-light {
   color: #ffffff;
 }
@@ -37,6 +31,16 @@
   text-align: center; 
 }
 
-.rounded-input {  // New class for rounded input containers
+.rounded-input {
   --border-radius: 15px;
+}
+
+ion-input:focus-within {
+  --color: #ffffff;
+  font-weight: bold;
+}
+
+ion-item.input-dark:focus-within ion-label {
+  color: #ffffff;
+  font-weight: bold;
 }

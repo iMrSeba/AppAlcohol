@@ -6,17 +6,17 @@
 
 <ion-content [fullscreen]="true" class="content-dark" padding>
   <ion-grid>
-    <ion-row class="ion-align-items-center ion-justify-content-center" style="min-height: calc(100vh - 200px); margin-top: 150px;">
+    <ion-row class="ion-align-items-center ion-justify-content-center" style="min-height: calc(100vh - 220px); margin-top: 100px;">
       <ion-col size-md="6" size-lg="5" size-xl="4" size="10">
-        <ion-card class="card-dark" @fade>
+        <ion-card class="card-dark" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); padding: 20px 20px;">
           <ion-card-content>
-            <ion-item class="rounded-input">  <!-- Updated line -->
-              <ion-label position="floating" class="text-light">Usuario</ion-label>
+            <ion-item class="rounded-input" style="margin-bottom: 20px;">
+              <ion-label position="floating" class="text-light" style="font-family: 'Helvetica Neue', sans-serif;">Usuario</ion-label>
               <ion-input type="text" class="input-dark" [(ngModel)]="username"></ion-input>
             </ion-item>
 
-            <ion-item class="rounded-input">  <!-- Updated line -->
-              <ion-label position="floating" class="text-light">Contraseña</ion-label>
+            <ion-item class="rounded-input" style="margin-bottom: 30px;">
+              <ion-label position="floating" class="text-light" style="font-family: 'Helvetica Neue', sans-serif;">Contraseña</ion-label>
               <ion-input type="password" class="input-dark" [(ngModel)]="password"></ion-input>
             </ion-item>
 
@@ -26,21 +26,21 @@
               [disabled]="isLoggingIn"
               class="login-button-dark rounded-button"
               expand="full"
+              style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 20px;"
             >
               Ingresar
             </ion-button>
 
-            <!-- Progress bar (ngIf is used to show/hide) -->
-            <ion-progress-bar *ngIf="showProgressBar" color="light"></ion-progress-bar>
+            <ion-progress-bar *ngIf="showProgressBar" color="light" style="margin-bottom: 20px;"></ion-progress-bar>
           </ion-card-content>
         </ion-card>
 
-        <ion-row class="ion-align-items-center ion-justify-content-center" style="margin-top: 20px;">
+        <ion-row class="ion-align-items-center ion-justify-content-center" style="margin-top: 30px;">
           <ion-col size="auto">
-            <p class="text-light">¿No tienes una cuenta?</p>
+            <p class="text-light" style="font-family: 'Helvetica Neue', sans-serif; margin-right: 10px;">¿No tienes una cuenta?</p>
           </ion-col>
           <ion-col size="auto">
-            <ion-button class="register-button-dark rounded-button" fill="clear" (click)="register()">Registrar</ion-button>
+            <ion-button class="register-button-dark rounded-button" fill="clear" (click)="register()" style="font-family: 'Helvetica Neue', sans-serif;">Registrar</ion-button>
           </ion-col>
         </ion-row>
       </ion-col>

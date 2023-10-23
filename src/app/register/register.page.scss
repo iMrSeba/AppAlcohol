@@ -1,30 +1,25 @@
-/* General Styles */
 body, ion-content {
   --ion-background-color: #1a1a1d;
-  --ion-color-step-50: #2a2a2d;  /* Slight variation for borders or highlights if needed */
-  --ion-color-step-100: #1a1a1d;  /* Main background color */
-  --ion-text-color: #ffffff;  /* General text color */
+  --ion-color-step-50: #2a2a2d;
+  --ion-color-step-100: #1a1a1d;
+  --ion-text-color: #ffffff;
 }
 
-/* Toolbar styles */
 .toolbar-green {
   --background: #282c35;
   --color: #ffffff;
 }
 
-/* Card styles */
 .card-green {
   --background: #333842;
   --color: #ffffff;
   border-radius: 15px;
 }
 
-/* Content styles */
 .content-black {
   --ion-background-color: #1a1a1d;
 }
 
-/* Button styles */
 .login-button-dark {
   --background: #4a4d56;
   --color: #ffffff;
@@ -35,20 +30,45 @@ body, ion-content {
   --color: #4a4d56;
 }
 
-/* Input styles */
 .input-dark, .input-rounded {
   --background: rgba(255, 255, 255, 0.1);
   --color: #ffffff;
   border-radius: 15px;
 }
 
-/* Light text for contrast against dark backgrounds */
 .text-light {
   color: #ffffff;
 }
 
-/* Rounded buttons */
 .rounded-button {
   border-radius: 20px;
   text-align: center;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 16px;
+}
+
+.card-green {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.action-items {
+  margin-top: 20px;
+}
+
+ion-input:focus-within {
+  --color: #ffffff;
+  font-weight: bold;
+}
+
+ion-item.input-dark:focus-within ion-label {
+  color: #ffffff;
+  font-weight: bold;
 }
