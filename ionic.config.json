@@ -1,0 +1,7 @@
+{
+  "name": "App2Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

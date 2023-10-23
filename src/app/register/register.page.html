@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar-green">
+    <ion-title class="ion-text-center">Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-black">
+  <div class="ion-align-items-center ion-justify-content-center" style="height: calc(100vh - 100px); margin-top: 100px;">
+    <ion-card class="card-green">
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text" [(ngModel)]="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+        <ion-button class="login-button" expand="full" (click)="register()" [disabled]="isRegistering">
+          Register
+        </ion-button>
+
+        <!-- Barra de carga (ngIf se usa para mostrar/ocultar) -->
+        <ion-progress-bar *ngIf="showProgressBar"></ion-progress-bar>
+      </ion-card-content>
+    </ion-card>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="auto">
+        <ion-button class="register-button" fill="clear" (click)="goToLogin()">Volver</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+
