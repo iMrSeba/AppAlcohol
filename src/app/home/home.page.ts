@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
+
+
 export class HomePage implements OnInit {
+  
+  
 
   public searchTerm: string = '';
   public drinks: any[] = [
@@ -28,9 +33,9 @@ export class HomePage implements OnInit {
       this.isGrid = !this.isGrid;
     }
 
-  constructor() { }
-
+  constructor() {}
   ngOnInit() {
+    
     this.filteredDrinks = this.drinks; // Inicialmente mostrar todas las bebidas.
   }
 

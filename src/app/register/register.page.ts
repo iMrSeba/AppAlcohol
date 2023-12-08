@@ -49,6 +49,7 @@ export class RegisterPage implements OnInit {
         username: this.username,
         password: this.password,
         email: this.email,
+        birthdate: this.birthdate,
         approved: this.approved,
         connected: this.connected
       };
@@ -116,10 +117,11 @@ export class RegisterPage implements OnInit {
 
   private calculateAge(birthDate: Date): number {
     let today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    let month = today.getMonth() - birthDate.getMonth();
+    let birthDate2 = new Date(birthDate);
+    let age = today.getFullYear() - birthDate2.getFullYear();
+    let month = today.getMonth() - birthDate2.getMonth();
 
-    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+    if (month < 0 || (month === 0 && today.getDate() < birthDate2.getDate())) {
         age--;
     }
     return age;

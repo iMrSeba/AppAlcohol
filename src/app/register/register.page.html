@@ -1,64 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="toolbar-green">
-    <ion-title class="ion-text-center text-light">Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="content-black" @fade style="scroll-padding: 0 0 50px 0;">
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6" size-xl="4">
+        <ion-card class="card-green" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); padding: 20px 20px;">
+          <ion-card-content>
 
-<ion-content [fullscreen]="true" class="content-black" @fade>
-  <div class="centered-content">
+            <ion-item class="input-dark" style="margin-bottom: 15px;">
+              <ion-label position="floating">Usuario</ion-label>
+              <ion-input type="text" [(ngModel)]="username"></ion-input>
+            </ion-item>
 
-    <ion-card class="card-green" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); padding: 20px 20px;">
-      <ion-card-content>
+            <ion-item class="input-dark" style="margin-bottom: 15px;">
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input type="password" [(ngModel)]="password"></ion-input>
+            </ion-item>
 
-        <!-- Input fields with the consistent dark theme look -->
-        <ion-item class="input-dark" style="margin-bottom: 15px;">
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input type="text" [(ngModel)]="username"></ion-input>
-        </ion-item>
+            <ion-item class="input-dark" style="margin-bottom: 15px;">
+              <ion-label position="floating">Confirmar Contraseña</ion-label>
+              <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+            </ion-item>
 
-        <ion-item class="input-dark" style="margin-bottom: 15px;">
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="password"></ion-input>
-        </ion-item>
+            <ion-item class="input-dark" style="margin-bottom: 15px;">
+              <ion-label position="floating">Correo</ion-label>
+              <ion-input type="email" [(ngModel)]="email"></ion-input>
+            </ion-item>
 
-        <ion-item class="input-dark" style="margin-bottom: 15px;">
-          <ion-label position="floating">Confirmar Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
-        </ion-item>
+            <ion-item class="input-dark" style="margin-bottom: 15px;">
+              <ion-label position="floating">Fecha Nacimiento</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="birthdate"></ion-datetime>
+            </ion-item>
 
-        <ion-item class="input-dark" style="margin-bottom: 15px;">
-          <ion-label position="floating">Correo</ion-label>
-          <ion-input type="email" [(ngModel)]="email"></ion-input>
-        </ion-item>
+            <ion-item class="input-dark" style="margin-bottom: 15px;">
+              <ion-label position="stacked">Subir imagen de ID/Carnet/Pasaporte</ion-label>
+              <ion-input type="file" [(ngModel)]="profileImage"></ion-input>
+            </ion-item>
 
-        <ion-item class="input-dark" style="margin-bottom: 15px;">
-          <ion-label position="floating">Fecha de nacimiento</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Selecciona tu fecha" style="text-align: right;" [(ngModel)]="birthdate"></ion-datetime>
-        </ion-item>
+            <!-- Register Button with consistent theming -->
+            <div class="action-items ion-text-center">
+              <ion-button class="login-button-dark rounded-button" expand="full" (click)="register()" [disabled]="isRegistering" style="margin-bottom: 20px;">
+                Registrar
+              </ion-button>
 
-        <ion-item class="input-dark" style="margin-bottom: 15px;">
-          <ion-label position="stacked">Subir imagen de ID/Carnet/Pasaporte</ion-label> 
-          <ion-input type="file" [(ngModel)]="profileImage"></ion-input>
-        </ion-item>
+              <!-- Progress bar -->
+              <ion-progress-bar color="dark" *ngIf="showProgressBar"></ion-progress-bar>
+            </div>
 
-        <!-- Register Button with consistent theming -->
-        <div class="action-items">
-          <ion-button class="login-button-dark rounded-button" expand="full" (click)="register()" [disabled]="isRegistering" style="margin-bottom: 20px;">
-            Registrar
-          </ion-button>
-
-          <!-- Progress bar -->
-          <ion-progress-bar color="dark" *ngIf="showProgressBar"></ion-progress-bar>
-        </div>
-
-      </ion-card-content>
-    </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
 
     <ion-row class="ion-margin-top ion-align-items-center ion-justify-content-center">
       <ion-col size="auto">
         <ion-button class="register-button-dark rounded-button" fill="clear" (click)="goToLogin()">Volver</ion-button>
       </ion-col>
     </ion-row>
-
-  </div>
+  </ion-grid>
 </ion-content>

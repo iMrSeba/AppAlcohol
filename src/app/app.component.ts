@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Login', url: '/folder/Login', icon: 'person' },
-    { title: 'Home', url: '/folder/Home', icon: 'person' },
-    { title: 'Profile', url: '/folder/Profile', icon: 'person' },
-    { title: 'Register', url: '/folder/Register', icon: 'person' },
+    { title: 'Inicio', url: '/home', icon: 'home' },
+    { title: 'Perfil', url: '/profile', icon: 'person' },
+    { title: 'Cerrar sesión', url: '/login', icon: 'log-out' },
   ];
+
   public labels = [];
   constructor() {}
 }

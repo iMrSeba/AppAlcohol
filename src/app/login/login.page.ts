@@ -36,8 +36,10 @@ import { authConfig } from './path-to-your-auth-config';*/
 export class LoginPage implements OnInit {
   isButtonClicked = false;  // <-- Add this property for button animation state
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
-
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {
+    this.authService.clearToken();
+  }
+  
   username: string = '';
   password: string = '';
   isLoggingIn: boolean = false;
@@ -87,7 +89,7 @@ export class LoginPage implements OnInit {
   register() {
     this.router.navigate(['/register']);
   }
-
+  
   ngOnInit() {}
 
 }
