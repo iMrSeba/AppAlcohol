@@ -62,6 +62,7 @@ export class LoginPage implements OnInit {
         if(response != null && response != 12){
           console.log('Inicio de sesión exitoso');
           const typedResponse = response as LoginResponse;
+          this.authService.setUser(typedResponse.user);
           this.authService.setToken(typedResponse.token);
           this.isLoggingIn = false;
           this.showProgressBar = false

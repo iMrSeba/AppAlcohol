@@ -1,15 +1,34 @@
 import { Injectable } from '@angular/core';
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  photo: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  setUserId(userId: any) {
-    this.userId = userId;
-  }
   
   private token: string = '';
-  private userId: string = '';
+  private user: User = {
+    id: '',
+    name: '',
+    email: '',
+    password: '',
+    photo: '',
+  };
+
+  setUser(user: User): void {
+    this.user = user;
+  }
+
+  getUser(): User {
+    return this.user;
+  }
   clearToken() {
     this.token = '';
   }
@@ -21,4 +40,5 @@ export class AuthService {
   getToken() {
     return this.token;
   }
+  
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Buffer } from 'buffer';
 
 @Component({
   selector: 'app-profile',
@@ -8,15 +10,25 @@ import { AuthService } from '../auth.service';
 })
 export class ProfilePage {
 
-  private token: string;
-  
-  
-  constructor(authService:AuthService) { 
-    this.token = authService.getToken();
-    console.log("token: ", this.token);
+  user: any;
+  imageSrc: string | null = null;
+
+  constructor(private authService: AuthService) {
+    this.user = this.authService.getUser();
   }
 
-  
+  ngOnInit(): void {
+    if (this.user && this.user.image) {
+      this.imageSrc = this.convertBufferToImageUrl(this.user.image.data);
+    }
+  }
+
+  private convertBufferToImageUrl(bufferData: number[]): string {
+    const blob = new Blob([new Uint8Array(bufferData)], { type: 'image/png' });
+    return URL.createObjectURL(blob);
+  }
+
+
   changePassword() {
     console.log("Change password clicked");
     // Implement functionality here

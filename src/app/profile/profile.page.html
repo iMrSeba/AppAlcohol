@@ -12,11 +12,11 @@
   </ion-header>
 
   <ion-avatar class="ion-margin-top ion-margin-bottom profile-avatar">
-    <img src="path_to_profile_image.jpg">
+    <img [attr.src]="imageSrc" alt="Foto de perfil">
   </ion-avatar>
 
   <ion-text class="profile-name" style="color: black;"> <!-- Letras negras -->
-    <h2>SK Neku</h2>
+    <h2>{{ user.username }}</h2>
   </ion-text>
 
   <ion-list class="ion-margin-top profile-options-list">
