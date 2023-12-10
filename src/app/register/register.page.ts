@@ -69,6 +69,16 @@ export class RegisterPage implements OnInit {
                         this.http.post(environment.apiUrl+"/users", registerData).subscribe(
                           (response) => {
                             console.log("Usuario Creado con exito")
+                            if(this.profileImage != null){
+                              this.http.post(environment.apiUrl+"/users/UploadPhoto",registerData,this.profileImage).subscribe(
+                                (response) => {
+                                  console.log("Imagen de perfil subida con exito")
+                                },
+                                (error) => {
+                                  console.log(error)
+                                }
+                              );
+                            }
                             this.isRegistering  = false;
                             this.showProgressBar= false;
                             this.router.navigate(['/login']);

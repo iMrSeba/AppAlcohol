@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,8 +8,15 @@ import { Component } from '@angular/core';
 })
 export class ProfilePage {
 
-  constructor() { }
+  private token: string;
+  
+  
+  constructor(authService:AuthService) { 
+    this.token = authService.getToken();
+    console.log("token: ", this.token);
+  }
 
+  
   changePassword() {
     console.log("Change password clicked");
     // Implement functionality here

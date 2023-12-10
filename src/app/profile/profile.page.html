@@ -1,10 +1,10 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" style="--ion-background-color: $celeste-color;">
   <ion-toolbar color="dark">
     <ion-title class="ion-text-center">Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding dark-background">
+<ion-content [fullscreen]="true" class="ion-padding dark-background" style="--ion-background-color: $celeste-color;">
   <ion-header collapse="condense">
     <ion-toolbar color="dark">
       <ion-title size="large">Perfil</ion-title>
@@ -15,7 +15,7 @@
     <img src="path_to_profile_image.jpg">
   </ion-avatar>
 
-  <ion-text class="profile-name">
+  <ion-text class="profile-name" style="color: black;"> <!-- Letras negras -->
     <h2>SK Neku</h2>
   </ion-text>
 
@@ -27,3 +27,4 @@
     <ion-item button detail lines="full" (click)="logout()">Cerrar Sesión</ion-item>
   </ion-list>
 </ion-content>
+

@@ -4,9 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
+  setUserId(userId: any) {
+    this.userId = userId;
+  }
   
   private token: string = '';
-
+  private userId: string = '';
   clearToken() {
     this.token = '';
   }
