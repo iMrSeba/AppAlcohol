@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { environment } from 'src/environments/environment';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -30,7 +30,7 @@ export class RegisterPage implements OnInit {
   isRegistering: boolean = false;
   showProgressBar: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService,private fireStorage:AngularFireStorage) { }
 
   register() {
     if (this.birthdate) {
@@ -70,6 +70,7 @@ export class RegisterPage implements OnInit {
                           (response) => {
                             console.log("Usuario Creado con exito")
                             if(this.profileImage != null){
+                              console.log(this.profileImage)
                               this.http.post(environment.apiUrl+"/users/UploadPhoto",registerData,this.profileImage).subscribe(
                                 (response) => {
                                   console.log("Imagen de perfil subida con exito")
@@ -135,6 +136,15 @@ export class RegisterPage implements OnInit {
         age--;
     }
     return age;
+  }
+
+  async onFileChanged(event: any) {
+    const file = event.target.files[0];
+    if(file){
+      const path = `yt/${file.name}`;
+      const uploadtask =  await this.fireStorage.upload(path,file);
+
+    }
   }
 
   goToLogin() {
