@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Buffer } from 'buffer';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -11,46 +9,23 @@ import { Buffer } from 'buffer';
 export class ProfilePage {
 
   user: any;
-  imageSrc: string | null = null;
+  image: any = null;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router: Router) {
     this.user = this.authService.getUser();
+    this.image = this.authService.getUser().image;
   }
 
-  ngOnInit(): void {
-    if (this.user && this.user.image) {
-      this.imageSrc = this.convertBufferToImageUrl(this.user.image.data);
-    }
-  }
-
-  private convertBufferToImageUrl(bufferData: number[]): string {
-    const blob = new Blob([new Uint8Array(bufferData)], { type: 'image/png' });
-    return URL.createObjectURL(blob);
-  }
-
+  ngOnInit(): void {}
 
   changePassword() {
+    this.router.navigate(['/change-password']);
     console.log("Change password clicked");
-    // Implement functionality here
-  }
-
-  verifyEmail() {
-    console.log("Verify email clicked");
     // Implement functionality here
   }
 
   changeAddress() {
     console.log("Change address clicked");
-    // Implement functionality here
-  }
-
-  enable2FA() {
-    console.log("Enable 2FA clicked");
-    // Implement functionality here
-  }
-
-  logout() {
-    console.log("Logout clicked");
     // Implement functionality here
   }
 }

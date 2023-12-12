@@ -5,7 +5,7 @@ interface User {
   name: string;
   email: string;
   password: string;
-  photo: string;
+  image: string;
 }
 
 @Injectable({
@@ -19,7 +19,7 @@ export class AuthService {
     name: '',
     email: '',
     password: '',
-    photo: '',
+    image: '',
   };
 
   setUser(user: User): void {

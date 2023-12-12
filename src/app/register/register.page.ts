@@ -26,7 +26,8 @@ export class RegisterPage implements OnInit {
   birthdate: Date | null = null; 
   approved: boolean = false;
   connected: boolean = false;
-
+  file: any = null;  
+  path: string = '';
   isRegistering: boolean = false;
   showProgressBar: boolean = false;
 
@@ -67,11 +68,19 @@ export class RegisterPage implements OnInit {
                       }
                       else{
                         this.http.post(environment.apiUrl+"/users", registerData).subscribe(
-                          (response) => {
+                          async (response) => {
                             console.log("Usuario Creado con exito")
-                            if(this.profileImage != null){
-                              console.log(this.profileImage)
-                              this.http.post(environment.apiUrl+"/users/UploadPhoto",registerData,this.profileImage).subscribe(
+                            if(this.file != null){
+                              const uploadtask =  await this.fireStorage.upload(this.path,this.file);
+                              this.profileImage = await uploadtask.ref.getDownloadURL();
+                              const requestData = {
+                                username: this.username,
+                                password: this.password,
+                                email: this.email,
+                                birthdate: this.birthdate,
+                                image: this.profileImage
+                              };
+                              this.http.post(environment.apiUrl+"/users/UploadPhoto",requestData).subscribe(
                                 (response) => {
                                   console.log("Imagen de perfil subida con exito")
                                 },
@@ -139,11 +148,9 @@ export class RegisterPage implements OnInit {
   }
 
   async onFileChanged(event: any) {
-    const file = event.target.files[0];
-    if(file){
-      const path = `yt/${file.name}`;
-      const uploadtask =  await this.fireStorage.upload(path,file);
-
+    this.file = event.target.files[0];
+    if(this.file){
+      this.path = `yt/${this.file.name}`;
     }
   }
 
