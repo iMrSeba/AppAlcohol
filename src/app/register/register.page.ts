@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { environment } from 'src/environments/environment';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { AlertController } from '@ionic/angular';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -18,6 +20,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class RegisterPage implements OnInit {
 
+  passwordsMatch: boolean = true;
+  showPassword: boolean = false;
   username: string = '';
   password: string = '';
   profileImage: any = null;
@@ -31,7 +35,40 @@ export class RegisterPage implements OnInit {
   isRegistering: boolean = false;
   showProgressBar: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService,private fireStorage:AngularFireStorage) { }
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService,private fireStorage:AngularFireStorage,private alertController: AlertController) { }
+
+  checkPasswordMatch() {
+    this.passwordsMatch = this.password === this.confirmPassword;
+  }
+  
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  async presentRegistrationConfirmation() {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Estás seguro de que los datos ingresados son correctos?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Registro cancelado');
+          },
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            // Proceed with the registration logic
+            this.register();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
 
   register() {
     if (this.birthdate) {
@@ -62,6 +99,11 @@ export class RegisterPage implements OnInit {
                   this.http.post(environment.apiUrl+"/users/Email", registerData).subscribe(
                     (response) => {
                       if(response != null){
+                        this.alertController.create({
+                          header: 'Error',
+                          message: 'Correo Ingresado Ya Existe.',
+                          buttons: ['OK']
+                        }).then(alert => alert.present());
                         console.log("Correo Ingresado Ya Existe")
                         this.isRegistering  = false;
                         this.showProgressBar= false;
@@ -111,12 +153,22 @@ export class RegisterPage implements OnInit {
                 }
                 else{
                   console.log("Usuario ya existente, Pruebe con otro")
+                  this.alertController.create({
+                    header: 'Error',
+                    message: 'Usuario ya existente, Pruebe con otro.',
+                    buttons: ['OK']
+                  }).then(alert => alert.present());
                   this.isRegistering  = false;
                   this.showProgressBar= false;
                 }
               },
               (error) => {
                 console.log("Usuario No se pudo crear, Error Interno")
+                this.alertController.create({
+                  header: 'Error',
+                  message: 'Usuario No se pudo crear, Error Interno.',
+                  buttons: ['OK']
+                }).then(alert => alert.present());
                 this.isRegistering  = false;
                 this.showProgressBar= false;
               }
@@ -130,6 +182,11 @@ export class RegisterPage implements OnInit {
     }
     else{
       console.log("Debe Completar todos los campos")
+      this.alertController.create({
+        header: 'Error',
+        message: 'Debe Completar todos los campos.',
+        buttons: ['OK']
+      }).then(alert => alert.present());
       this.isRegistering  = false;
       this.showProgressBar= false;
     }
@@ -147,6 +204,14 @@ export class RegisterPage implements OnInit {
     return age;
   }
 
+  private showAgeAlert() {
+    this.alertController.create({
+      header: 'Error',
+      message: 'Debes tener al menos 18 años para registrarte.',
+      buttons: ['OK']
+    }).then(alert => alert.present());
+  }
+    
   async onFileChanged(event: any) {
     this.file = event.target.files[0];
     if(this.file){

@@ -8,7 +8,7 @@
 
   <!-- Barra de Búsqueda con Filtros -->
   <ion-searchbar class="searchbar-dark" placeholder="Buscar bebidas..." [(ngModel)]="searchTerm" (ionChange)="filterDrinks()"></ion-searchbar>
-
+  
 
   <ion-row class="ion-padding-top">
     <ion-col size="3" size-md="4">
@@ -31,13 +31,13 @@
   <!-- Categorías -->
   <ion-row class="ion-margin-top categories">
     <ion-col *ngFor="let category of ['Cervezas', 'Vinos', 'Licores', 'Cocteles', 'Sin alcohol']">
-      <ion-button expand="full" fill="clear">{{category}}</ion-button>
+      <ion-button expand="full" fill="clear" (click)="selectCategory(category)">{{category}}</ion-button>
     </ion-col>
   </ion-row>
 
   <!-- Lista de Bebidas -->
   <div [ngClass]="isGrid ? 'grid-view' : 'list-view'">
-    <ion-card *ngFor="let drink of drinks" class="card-dark drink-card">
+    <ion-card *ngFor="let drink of filteredDrinks" class="card-dark drink-card" (click)="showQuantityPrompt(drink)">
       <ion-img [src]="drink.image" [alt]="drink.name"></ion-img>
       <ion-card-content>
         <ion-card-title>{{drink.name}}</ion-card-title>

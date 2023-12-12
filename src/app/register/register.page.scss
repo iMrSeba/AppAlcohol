@@ -63,6 +63,21 @@ body, ion-content {
   margin-top: 20px;
 }
 
+.password-match-message {
+  color: red; // Set the color to red or apply any other styling
+  margin-top: 5px; // Add margin to separate the message from the input fields
+}
+
+ion-item {
+  position: relative;
+
+  ion-icon {
+    position: absolute;
+    top: calc(50% - 17px); /* Adjust the value as needed */
+    right: 12px;
+  }
+}
+
 ion-input:focus-within {
   --color: #ffffff;
   font-weight: bold;

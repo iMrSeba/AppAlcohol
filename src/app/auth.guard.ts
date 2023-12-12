@@ -18,9 +18,10 @@ export class AuthGuard implements CanActivate {
     const token = this.authService.getToken();
 
     // Si el token no está presente, redirigir a la página de inicio de sesión
-    if (!token) {
+    /** if (!token) {
       return this.router.createUrlTree(['/login']);
-    }
+    }*/
+    
 
     // Permitir acceso si el token está presente
     return true;
