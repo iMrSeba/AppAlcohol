@@ -45,7 +45,7 @@ export class ShoppingCartPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  finish() {
+  /*finish() {
     if(this.calculateTotal() != 0){
       const user = this.authService.getUser();
       const data = {
@@ -81,12 +81,59 @@ export class ShoppingCartPage implements OnInit {
         }).then(alert => alert.present());
     }
     
+  }*/
+  async finishReal() {
+    if (this.calculateTotal() !== 0) {
+      const user = this.authService.getUser();
+      const storedLocation = localStorage.getItem('userLocation');
+      
+      if (user && user.id) {
+        const data = {
+          priceTotal: this.calculateTotal().toString(),
+          stringList: this.convertProductsToString(),
+          ubication: storedLocation,
+          userId: user.id,
+        };
+  
+        try {
+          console.log(data.userId);
+          console.log(data);
+  
+          // Utiliza await para esperar a que la solicitud HTTP se complete
+          const response = await this.http.post(environment.apiUrlOrder + "/orders", data).toPromise();
+  
+          this.alertController.create({
+            header: 'Creado Correctamente',
+            message: 'Su pedido ha sido creado correctamente',
+            buttons: ['OK']
+          }).then(alert => alert.present());
+  
+          this.router.navigate(['/home']);
+        } catch (error) {
+          console.log(error);
+          this.alertController.create({
+            header: 'Pedido no creado',
+            message: 'Su pedido no ha sido creado',
+            buttons: ['OK']
+          }).then(alert => alert.present());
+        }
+      } else {
+        console.log('Usuario no autenticado.'); // Manejar el caso cuando el usuario no está autenticado.
+      }
+    } else {
+      this.alertController.create({
+        header: 'No hay productos en el carrito',
+        message: 'No hay productos en el carrito',
+        buttons: ['OK']
+      }).then(alert => alert.present());
+    }
   }
-
+  
   authenticate() {
     this.faio.isAvailable().then(()=>{
       this.faio.show({}).then((val)=>{
         alert(JSON.stringify(val));
+        this.finishReal();
       },(err)=>{
         alert(JSON.stringify(err));
       })

@@ -9,19 +9,34 @@ import { environment } from 'src/environments/environment';
   templateUrl: './my-orders.page.html',
   styleUrls: ['./my-orders.page.scss'],
 })
+
+
 export class MyOrdersPage implements OnInit {
-  orders: any = null;  
+  orders: any[] = [];  
+  idUser: any = null;
   constructor(private authService: AuthService,private router: Router,private http: HttpClient) { 
     this.http.get(environment.apiUrlOrder + '/orders').subscribe(
       (res: any) => {
-        this.orders = res;
+        const user = this.authService.getUser();
+      
+        this.idUser = user.id,
+      
+        
+        console.log(this.idUser+"id useire");
+
+
+        this.orders = res.filter((order: { userId: any; }) => order.userId === this.idUser);
         console.log(this.orders);
+        
       },
       (error) => {
         console.log(error);
       }
     );
+    
   }
+
+  
 
   ngOnInit() {
   }
