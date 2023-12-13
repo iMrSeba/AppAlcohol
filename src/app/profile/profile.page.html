@@ -1,5 +1,5 @@
-<ion-header [translucent]="true" style="--ion-background-color: $celeste-color;">
-  <ion-toolbar color="dark">
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar-dark">
     <ion-title class="ion-text-center">Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -46,7 +46,30 @@
     </ion-row>
   </ion-grid>
 
-  <ion-button (click)="toggleEditMode()">{{ editMode ? 'Guardar Cambios' : 'Editar Datos' }}</ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+      <ion-input type="file"  [disabled]="!editMode" (change)="onFileChanged($event)"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-button (click)="toggleEditMode()">
+          {{ editMode ? 'Guardar Cambios' : 'Editar Datos' }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-row class="ion-margin-top ion-align-items-center ion-justify-content-center">
+    <ion-col size="auto">
+      <ion-button class="register-button-dark rounded-button" fill="clear" (click)="goToLogin()">Volver</ion-button>
+    </ion-col>
+  </ion-row>
+
 </ion-content>
 
 

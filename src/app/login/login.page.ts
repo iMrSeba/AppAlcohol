@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService) {
     this.authService.clearToken();
+    this.clearLocalStorage();
   }
   
   username: string = '';
@@ -91,6 +92,10 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/register']);
   }
   
+  clearLocalStorage() {
+    localStorage.clear();
+  }
+
   ngOnInit() {}
 
 }

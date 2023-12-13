@@ -1,0 +1,42 @@
+.page-dark {
+    --ion-background-color: #1a1a1d;
+    --ion-color-base: #ffffff;
+  }
+  
+  .toolbar-dark {
+    --background: #282c35;
+    --color: #ffffff;
+  }
+  
+  .searchbar-dark {
+    --background: rgba(255, 255, 255, 0.1);
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    --color: #ffffff;
+    --icon-color: #ffffff;
+    border-radius: 15px;
+    margin: 15px;
+  }
+  
+  .card-dark {
+    --background: #333842;
+    --color: #ffffff;
+    margin: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  
+  .list-view .drink-card {
+    margin: 16px 0;
+  }
+  
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }

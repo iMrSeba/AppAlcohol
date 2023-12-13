@@ -35,7 +35,7 @@
             
             <ion-item class="input-dark" style="margin-bottom: 15px;">
               <ion-label position="stacked">Subir imagen de ID/Carnet/Pasaporte</ion-label>
-              <ion-input type="file" [(ngModel)]="profileImage"></ion-input>
+              <input type="file" (change)="onFileChanged($event)"><input>
             </ion-item>
 
             <!-- Register Button with consistent theming -->

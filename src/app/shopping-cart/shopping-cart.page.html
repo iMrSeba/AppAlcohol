@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar-dark">
+    <ion-title class="ion-text-center">Carrito de compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="page-dark">
+  
+
+  <ion-list>
+    <ion-item *ngFor="let selectedDrink of selectedDrinks">
+      <ion-label>
+        <h2>{{ selectedDrink.name }}</h2>
+        <p>Cantidad: {{ selectedDrink.quantity }} - Precio: {{ selectedDrink.price }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="increaseQuantity(selectedDrink)">+</ion-button>
+        <ion-button (click)="decreaseQuantity(selectedDrink)">-</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botones para cancelar y finalizar -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="cancel()" expand="full">Cancelar</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="finish()" expand="full">Finalizar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <!-- Total -->
+  <ion-grid>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        <h2>Total: {{ calculateTotal() }}</h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- ... (otros elementos según sea necesario) ... -->
+
+</ion-content>
