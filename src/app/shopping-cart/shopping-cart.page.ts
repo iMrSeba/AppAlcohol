@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
-import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -14,7 +14,7 @@ import { AuthService } from '../auth.service';
 })
 export class ShoppingCartPage implements OnInit {
 
-  constructor(private authService: AuthService,private router: Router,private navCtrl: NavController,private http: HttpClient,private alertController: AlertController) {}
+  constructor(private authService: AuthService,private router: Router,private http: HttpClient,private alertController: AlertController,private faio:FingerprintAIO) {}
 
   public selectedDrinks: any[] = [];
 
@@ -44,6 +44,8 @@ export class ShoppingCartPage implements OnInit {
     localStorage.clear();
     this.router.navigate(['/home']);
   }
+
+
 
   finish() {
     if(this.calculateTotal() != 0){
@@ -81,6 +83,18 @@ export class ShoppingCartPage implements OnInit {
         }).then(alert => alert.present());
     }
     
+  }
+
+  authenticate() {
+    this.faio.isAvailable().then(()=>{
+      this.faio.show({}).then((val)=>{
+        alert(JSON.stringify(val));
+      },(err)=>{
+        alert(JSON.stringify(err));
+      })
+    },(err)=>{
+      alert("FingerprintAIO no disponible");
+    })
   }
 
   // Guardar en el localStorage

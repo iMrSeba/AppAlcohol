@@ -31,11 +31,13 @@ const routes: Routes = [
 
   {
     path: 'shopping-cart',
-    loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartPageModule)
+    loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'my-orders',
-    loadChildren: () => import('./my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
+    loadChildren: () => import('./my-orders/my-orders.module').then( m => m.MyOrdersPageModule),
+    canActivate: [AuthGuard]
   },
   
   
