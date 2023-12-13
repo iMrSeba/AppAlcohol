@@ -20,13 +20,16 @@
     </ion-item>
   </ion-list>
 
-  <!-- Botones para cancelar y finalizar -->
+  <!-- Botones para cancelar, localizar y finalizar -->
   <ion-grid>
     <ion-row>
-      <ion-col size="6">
+      <ion-col size="4">
         <ion-button (click)="cancel()" expand="full">Cancelar</ion-button>
       </ion-col>
-      <ion-col size="6">
+      <ion-col size="4">
+        <ion-button (click)="captureLocation()" expand="full">Obtener Ubicación</ion-button>
+      </ion-col>
+      <ion-col size="4">
         <ion-button (click)="finish()" expand="full">Finalizar</ion-button>
       </ion-col>
     </ion-row>

@@ -18,6 +18,7 @@ export class ProfilePage {
   file: any = null;
   path: string = '';
   profileImage: any = null;
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -50,12 +51,62 @@ export class ProfilePage {
       this.user.username !== this.originalUserData.username ||
       this.user.email !== this.originalUserData.email ||
       this.user.password !== this.originalUserData.password ||
-      this.image !== this.profileImage
+      this.file !== null
     );
   }
 
   async uploadUserData() {
-    console.log("Hola mundo")
+    this.loading = true;
+    if(this.file){
+      const ref = this.fireStorage.ref(this.path);
+      await this.fireStorage.upload(this.path, this.file);
+      this.profileImage = await ref.getDownloadURL().toPromise();
+      this.user.image = this.profileImage;
+      const data = {
+        username: this.originalUserData.username,
+        email: this.user.email,
+        password: this.user.password,
+        image: this.user.image,
+        newUsername:this.user.username,
+      };
+      this.http.post(environment.apiUrl + '/users/updateUser', data).subscribe(
+        (response) => {
+          this.originalUserData = { ...this.user };
+          this.authService.setUser(this.user);
+          this.image = this.authService.getUser().image;
+          this.editMode = false;
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+    else{
+      const data = {
+        username: this.originalUserData.username,
+        email: this.user.email,
+        password: this.user.password,
+        image: this.user.image,
+        newUsername:this.user.username,
+      };
+      this.http.post(environment.apiUrl + '/users/updateUser', data).subscribe(
+        (response) => {
+          this.originalUserData = { ...this.user };
+          this.authService.setUser(this.user);
+          this.image = this.authService.getUser().image;
+          this.editMode = false;
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   goToLogin() {
@@ -72,3 +123,4 @@ export class ProfilePage {
 
   ngOnInit(): void {}
 }
+

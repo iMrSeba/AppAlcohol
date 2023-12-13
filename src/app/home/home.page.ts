@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   public searchTerm: string = '';
   public drinks: any[] = [
     //'Cervezas', 'Vinos', 'Licores', 'Cocteles', 'Sin alcohol'
-    { name: 'Heineken',category: 'Cervezas', description: 'Cerveza lager de origen holandés.', price: 'CLP 1.800' },
+    { name: 'Heineken',category: 'Cervezas', description: 'Cerveza lager de origen holandés.', price: 'CLP 1.800'},
     { name: 'Carmenere Reserva',category: 'Vinos', description: 'Vino tinto chileno con notas de frutas rojas.', price: 'CLP 9.500' },
     { name: 'Absolut',category: 'Destilados' ,description: 'Vodka sueco con un sabor claro y crujiente.', price: 'CLP 15.000' },
     { name: 'Havana Club 7 años',category: 'Ron', description: 'Ron cubano, añejado durante 7 años.', price: 'CLP 13.500' },
@@ -37,12 +37,11 @@ export class HomePage implements OnInit {
     { name: 'Ron Diplomático Reserva Exclusiva', category: 'Ron', description: 'Ron venezolano premium, con notas de caramelo y especias exóticas.', price: 'CLP 45.000' },
     { name: 'Hennessy XO', category: 'Coñac', description: 'Coñac francés excepcional, con complejidad y profundidad de sabor.', price: 'CLP 120.000' },
     { name: 'Dom Pérignon Vintage', category: 'Champagne', description: 'Champagne francés de prestigio, símbolo de lujo y celebración.', price: 'CLP 200.000' },
-    { name: 'Château Margaux', category: 'Vinos', description: 'Vino tinto Bordeaux de alta gama, elegante y con gran reputación.', price: 'CLP 500.000' },
+    { name: 'Château Margaux', category: 'Vinos', description: 'Vino tinto Bordeaux de alta gama, elegante y con gran reputación.', price: 'CLP 500.000',image:'gs://imageuser-89a50.appspot.com/Productos - Vinos/imagen_2023-12-12_191612719.png' },
     { name: 'Penfolds Grange', category: 'Vinos', description: 'Vino tinto australiano icónico, con gran potencial de envejecimiento.', price: 'CLP 350.000' },
     { name: 'Sassicaia', category: 'Vinos', description: 'Vino tinto italiano Super Tuscan, con una complejidad excepcional.', price: 'CLP 250.000' },
     { name: 'Macallan Sherry Oak 18 Years', category: 'Whisky', description: 'Whisky escocés de malta, envejecido en barricas de jerez, con notas ricas y complejas.', price: 'CLP 200.000' },
     { name: 'Louis Roederer Cristal', category: 'Champagne', description: 'Champagne de lujo, con equilibrio perfecto y finas burbujas.', price: 'CLP 180.000' }
-    //acá se añaden más si es necesario
   ];
   public filteredDrinks: any[] = [];
   public isGrid: boolean = true;

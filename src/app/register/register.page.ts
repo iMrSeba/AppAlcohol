@@ -74,6 +74,7 @@ export class RegisterPage implements OnInit {
     if (this.birthdate) {
       const age = this.calculateAge(this.birthdate);
       if (age < 18) {
+        this.showAgeAlert();
           console.log("Debes tener al menos 18 años para registrarte.");
           return;  // Stop further execution
       }
@@ -176,6 +177,11 @@ export class RegisterPage implements OnInit {
       }
       else{
         console.log("Las contraseñas no coinciden")
+        this.alertController.create({
+          header: 'Error',
+          message: 'Las contraseñas no coinciden.',
+          buttons: ['OK']
+        }).then(alert => alert.present());
         this.isRegistering  = false;
         this.showProgressBar= false;
       }

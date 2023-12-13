@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { LoginResponse } from './login-response';
 import { AuthService } from '../auth.service';
 import { trigger, transition, style, animate, state, keyframes } from '@angular/animations';
+import { AlertController } from '@ionic/angular';
 /*import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from './path-to-your-auth-config';*/
@@ -36,7 +37,7 @@ import { authConfig } from './path-to-your-auth-config';*/
 export class LoginPage implements OnInit {
   isButtonClicked = false;  // <-- Add this property for button animation state
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService,private alertController: AlertController) {
     this.authService.clearToken();
     this.clearLocalStorage();
   }
@@ -71,17 +72,32 @@ export class LoginPage implements OnInit {
         }
         else if(response == 12){
           console.log('Contraseña Incorrecta');
+          this.alertController.create({
+            header: 'Error',
+            message: 'Contraseña Incorrecta.',
+            buttons: ['OK']
+          }).then(alert => alert.present());
           this.isLoggingIn = false;
           this.showProgressBar = false
         }
         else{
           console.log('Usuario No existe');
+          this.alertController.create({
+            header: 'Error',
+            message: 'Usuario No existe.',
+            buttons: ['OK']
+          }).then(alert => alert.present());
           this.isLoggingIn = false;
           this.showProgressBar = false
         }
       },
       (error) => {
         console.error('Error desde backend:', error);
+        this.alertController.create({
+          header: 'Error',
+          message: 'Error del sistema.',
+          buttons: ['OK']
+        }).then(alert => alert.present());
         this.isLoggingIn = false;
         this.showProgressBar = false
       }
