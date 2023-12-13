@@ -4,14 +4,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding dark-background" style="--ion-background-color: $celeste-color;">
+<ion-content [fullscreen]="true" class="page-dark">
   <ion-header collapse="condense">
     <ion-toolbar color="dark">
       <ion-title size="large">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-text class="profile-name" style="color: black;">
+  <ion-text class="profile-name">
     <h2>{{ user.username }}</h2>
   </ion-text>
   
@@ -23,24 +23,24 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
-        <ion-text class="profile-name" style="color: black;">
-          <ion-input [disabled]="!editMode" [(ngModel)]="user.username" placeholder="Nombre de usuario" maxlength="50"></ion-input>
+        <ion-text class="profile-name" style="color: rgb(255, 255, 255);">
+          <ion-input [disabled]="!editMode" [(ngModel)]="user.username" placeholder="Nombre de usuario" maxlength="50" class="profile-input"></ion-input>
         </ion-text>
       </ion-col>
     </ion-row>
   
     <ion-row>
       <ion-col size="12" class="ion-text-center">
-        <ion-text class="profile-name" style="color: black;">
-          <ion-input [disabled]="!editMode" [(ngModel)]="user.email" placeholder="Correo electrónico" maxlength="100"></ion-input>
+        <ion-text class="profile-name" style="color: rgb(255, 255, 255);">
+          <ion-input [disabled]="!editMode" [(ngModel)]="user.email" placeholder="Correo electrónico" maxlength="100" class="profile-input"></ion-input>
         </ion-text>
       </ion-col>
     </ion-row>
   
     <ion-row>
       <ion-col size="12" class="ion-text-center">
-        <ion-text class="profile-name" style="color: black;">
-          <ion-input [disabled]="!editMode" [(ngModel)]="user.password" type="password" placeholder="Contraseña" maxlength="20"></ion-input>
+        <ion-text class="profile-name" style="color: rgb(255, 255, 255);">
+          <ion-input [disabled]="!editMode" [(ngModel)]="user.password" type="password" placeholder="Contraseña" maxlength="20" class="profile-input"></ion-input>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -49,7 +49,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
-      <ion-input type="file"  [disabled]="!editMode" (change)="onFileChanged($event)"></ion-input>
+      <ion-input type="file"  [disabled]="!editMode" (change)="onFileChanged($event)" class="profile-input"></ion-input>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,5 +1,5 @@
 .page-dark {
-  --ion-background-color: #1a1a1d;
+  --ion-background-color: #51ff00;
   --ion-color-base: #ffffff;
 }
 
@@ -8,11 +8,17 @@
   --color: #ffffff;
 }
 
-
+.profile-name {
+  color: rgb(70, 6, 231);
+}
 
 .dark-background {
     --ion-background-color: #1e1e1e;
     --ion-color-step-550: #1e1e1e; 
+  }
+  
+  .rounded-input {
+    --border-radius: 15px;
   }
   
   .profile-avatar {
@@ -53,3 +59,51 @@
     z-index: 9999;
   }
   
+  .page-dark {
+    --ion-background-color: #1a1a1d;
+    --ion-color-base: #ffffff;
+  }
+  
+  .toolbar-dark {
+    --background: #282c35;
+    --color: #ffffff;
+  }
+  
+  .searchbar-dark {
+    --background: rgba(255, 255, 255, 0.1);
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    --color: #ffffff;
+    --icon-color: #ffffff;
+    border-radius: 15px;
+    margin: 15px;
+  }
+  
+  .card-dark {
+    --background: #333842;
+    --color: #ffffff;
+    margin: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  .profile-container {
+    border: 2px solid rgb(70, 6, 231); /* Color azul */
+    border-radius: 10px; /* Borde redondeado */
+    padding: 10px; /* Espaciado interno */
+    margin: 10px; /* Margen externo */
+  }
+  .profile-input {
+    border: 2px solid rgb(255, 255, 255); /* Color morado para el borde */
+    border-radius: 5px; /* Borde redondeado */
+    color:  rgb(255, 255, 255); /* Color azul para el texto */
+    padding: 5px; /* Espaciado interno */
+  }
+
+  .profile-avatar2 {
+    margin-top: 20px;
+  }
