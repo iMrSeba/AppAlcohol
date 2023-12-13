@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'https://app-service-user3.onrender.com',  
   apiUrlProduct: 'https://product-services-rgaf.onrender.com',
-  apiUrlOrder: 'https://orderservices.onrender.com',
+  apiUrlOrder: 'https://database-3-csoxozobze4f-eu-north-1-rds.onrender.com',
   firebaseConfig: {
     apiKey: "AIzaSyB_EH7vxA4CGUa1WOerUYRkDrRbwPevSU0",
     authDomain: "imageuser-89a50.firebaseapp.com",

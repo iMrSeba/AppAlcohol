@@ -13,11 +13,12 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 
-import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';	
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,BrowserAnimationsModule,OAuthModule.forRoot(),HttpClientModule,AngularFireModule.initializeApp(environment.firebaseConfig),AngularFireStorageModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, FingerprintAIO],
+  providers: [Camera,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, FingerprintAIO],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

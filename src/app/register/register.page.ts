@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AlertController } from '@ionic/angular';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-register',
@@ -34,8 +36,11 @@ export class RegisterPage implements OnInit {
   path: string = '';
   isRegistering: boolean = false;
   showProgressBar: boolean = false;
+  blobData: any = null;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService,private fireStorage:AngularFireStorage,private alertController: AlertController) { }
+  constructor(private camera: Camera,
+    private sanitizer: DomSanitizer,
+    private router: Router, private http: HttpClient, private authService: AuthService,private fireStorage:AngularFireStorage,private alertController: AlertController) { }
 
   checkPasswordMatch() {
     this.passwordsMatch = this.password === this.confirmPassword;
@@ -113,8 +118,8 @@ export class RegisterPage implements OnInit {
                         this.http.post(environment.apiUrl+"/users", registerData).subscribe(
                           async (response) => {
                             console.log("Usuario Creado con exito")
-                            if(this.file != null){
-                              const uploadtask =  await this.fireStorage.upload(this.path,this.file);
+                            if(this.blobData != null){
+                              const uploadtask =  await this.fireStorage.upload(this.path,this.blobData);
                               this.profileImage = await uploadtask.ref.getDownloadURL();
                               const requestData = {
                                 username: this.username,
@@ -229,6 +234,48 @@ export class RegisterPage implements OnInit {
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
+  async takePhoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+  
+    try {
+      const imageData = await this.camera.getPicture(options);
+      this.blobData = this.dataURItoBlob('data:image/jpeg;base64,' + imageData);
+      this.path = `yt/${this.username}_profile_picture.jpg`;
+      
+      const uploadTask = this.fireStorage.upload(this.path, this.blobData);
+      await uploadTask.then(async () => {
+        const uploadtask =  await this.fireStorage.upload(this.path,this.blobData);
+        this.profileImage = await uploadtask.ref.getDownloadURL();
+        
+      });
+    } catch (error) {
+      console.error('Error taking picture:', error);
+    }
+  }
+  
+  
+
+
+  // Función para convertir data URI a Blob
+  dataURItoBlob(dataURI: string): Blob {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+  
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+  
+    return new Blob([ab], { type: mimeString });
+  }
+
 
   ngOnInit() {
   }

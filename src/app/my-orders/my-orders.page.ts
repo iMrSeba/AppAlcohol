@@ -10,22 +10,20 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./my-orders.page.scss'],
 })
 export class MyOrdersPage implements OnInit {
-
-  constructor(private authService: AuthService,private router: Router,private http: HttpClient) { }
-
-  ngOnInit() {
-  }
-
-  orders: any = [];
-  ionViewWillEnter(){
+  orders: any = null;  
+  constructor(private authService: AuthService,private router: Router,private http: HttpClient) { 
     this.http.get(environment.apiUrlOrder + '/orders').subscribe(
       (res: any) => {
-        this.orders = res.data;
+        this.orders = res;
+        console.log(this.orders);
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+  ngOnInit() {
   }
 
 }

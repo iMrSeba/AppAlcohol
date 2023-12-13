@@ -45,15 +45,13 @@ export class ShoppingCartPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-
-
   finish() {
     if(this.calculateTotal() != 0){
       const user = this.authService.getUser();
       const data = {
-        priceTotal: this.calculateTotal(),
+        priceTotal: this.calculateTotal().toString(),
         stringList: this.convertProductsToString(),
-        ubication: "Tu casa",
+        ubication: "Coquimbo",
         idUser: user.id,
       }
       this.http.post(environment.apiUrlOrder+"/orders",data).subscribe(
@@ -66,7 +64,7 @@ export class ShoppingCartPage implements OnInit {
           this.router.navigate(['/home']);
         },
         (error) => {
-          console.log(error);
+          console.log(error.error.message);
           this.alertController.create({
             header: 'pedido no creado',
             message: 'Su pedido no ha sido creado',
