@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { GeolocationPosition } from '@capacitor/geolocation';
-import { Plugins } from '@capacitor/core';
-const { Geolocation } = Plugins;
+import { Geolocation } from '@capacitor/geolocation';
 import { NavController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.page.html',
@@ -10,7 +14,7 @@ import { NavController } from '@ionic/angular';
 })
 export class ShoppingCartPage implements OnInit {
 
-  constructor(private navCtrl: NavController) {}
+  constructor(private authService: AuthService,private router: Router,private navCtrl: NavController,private http: HttpClient,private alertController: AlertController) {}
 
   public selectedDrinks: any[] = [];
 
@@ -37,14 +41,49 @@ export class ShoppingCartPage implements OnInit {
   }
 
   cancel() {
-    // Lógica para cancelar
-    // Puedes ajustar la ruta según tu configuración
+    localStorage.clear();
+    this.router.navigate(['/home']);
   }
 
   finish() {
-    // Lógica para finalizar
-    // Puedes redirigir a otra página o realizar otras acciones
-    ; // Puedes ajustar la ruta según tu configuración
+    if(this.calculateTotal() != 0){
+      const user = this.authService.getUser();
+      const data = {
+        priceTotal: this.calculateTotal(),
+        stringList: this.convertProductsToString(),
+        ubication: "Tu casa",
+        idUser: user.id,
+      }
+      console.log(data)
+      this.http.post(environment.apiUrlOrder+"/orders",data).subscribe(
+        (response) => {
+          this.alertController.create({
+          header: 'Creado Correctamente',
+          message: 'Su pedido ha sido creado correctamente',
+          buttons: ['OK']
+          }).then(alert => alert.present());
+          this.router.navigate(['/home']);
+        },
+        (error) => {
+          console.log(error);
+          this.alertController.create({
+            header: 'pedido no creado',
+            message: 'Su pedido no ha sido creado correctamente',
+            buttons: ['OK']
+            }).then(alert => alert.present());
+        }
+      )
+    }
+    else{//wn me duele el pecho aiudatoma un tapsin como que tapsin esa wea es pal resfrio
+      this.alertController.create({
+        header: 'No hay productos en el carrito',
+        message: 'No hay productos en el carrito',
+        buttons: ['OK']
+        }).then(alert => alert.present());
+    }
+
+
+    
   }
 
   // Guardar en el localStorage
@@ -52,20 +91,14 @@ export class ShoppingCartPage implements OnInit {
     localStorage.setItem('selectedDrinks', JSON.stringify(this.selectedDrinks));
   }
 
-  calculateTotal(): number {
-    return this.selectedDrinks.reduce((total, drink) => {
-      return total + (drink.quantity * parseInt(drink.price.replace('CLP ', '').replace('.', '')));
-    }, 0);
-  }
-  
   async captureLocation() {
     try {
-      const permissions = await Geolocation['requestPermissions']();
+      const permissions = await Geolocation.requestPermissions();
 
        // Solicita permisos de geolocalización
 
       if (permissions.location === 'granted') {
-        const coordinates = await Geolocation['getCurrentPosition'](); // Obtiene la ubicación actual
+        const coordinates = await Geolocation.getCurrentPosition(); // Obtiene la ubicación actual
         const latitude = coordinates.coords.latitude;
         const longitude = coordinates.coords.longitude;
 
@@ -82,7 +115,41 @@ export class ShoppingCartPage implements OnInit {
     }
   }
 
+  calculateTotal(): number {
+    return this.selectedDrinks.reduce((total, drink) => {
+      return total + (drink.quantity * parseInt(drink.price.replace('CLP ', '').replace('.', '')));
+    }, 0);
+  }
+  
+  async showLocation() {
+    // Recupera la ubicación desde el almacenamiento local
+    const storedLocation = localStorage.getItem('userLocation');
+
+    if (storedLocation) {
+      const parsedLocation = JSON.parse(storedLocation);
+
+      // Crea una alerta para mostrar la ubicación
+      const alert = await this.alertController.create({
+        header: 'Ubicación Guardada',
+        message: `Latitud: ${parsedLocation.latitude}, Longitud: ${parsedLocation.longitude}`,
+        buttons: ['OK']
+      });
+
+      // Muestra la alerta
+      await alert.present();
+    } else {
+      console.log('No se encontró ubicación guardada');
+    }
+  }
+
+  convertProductsToString(): string {
+    // Convierte la lista de productos a un string anidado (JSON.stringify)
+    const productsString = JSON.stringify(this.selectedDrinks);
+    return productsString;
+  }
+
   ngOnInit() {
   }
+
 
 }
