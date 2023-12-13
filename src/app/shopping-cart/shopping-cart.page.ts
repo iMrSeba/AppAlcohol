@@ -54,7 +54,6 @@ export class ShoppingCartPage implements OnInit {
         ubication: "Tu casa",
         idUser: user.id,
       }
-      console.log(data)
       this.http.post(environment.apiUrlOrder+"/orders",data).subscribe(
         (response) => {
           this.alertController.create({
@@ -68,21 +67,19 @@ export class ShoppingCartPage implements OnInit {
           console.log(error);
           this.alertController.create({
             header: 'pedido no creado',
-            message: 'Su pedido no ha sido creado correctamente',
+            message: 'Su pedido no ha sido creado',
             buttons: ['OK']
             }).then(alert => alert.present());
         }
       )
     }
-    else{//wn me duele el pecho aiudatoma un tapsin como que tapsin esa wea es pal resfrio
+    else{
       this.alertController.create({
         header: 'No hay productos en el carrito',
         message: 'No hay productos en el carrito',
         buttons: ['OK']
         }).then(alert => alert.present());
     }
-
-
     
   }
 

@@ -9,8 +9,9 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/home', icon: 'home' },
-    { title: 'Carrito', url: '/shopping-cart', icon: 'eye' },
+    { title: 'Carrito', url: '/shopping-cart', icon: 'market'},
     { title: 'Perfil', url: '/profile', icon: 'person' },
+    { title: 'Mis Pedidos', url: '/my-orders', icon: 'cart'},
     { title: 'Cerrar sesión', url: '/login', icon: 'log-out' },
   ];
 
