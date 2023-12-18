@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +22,11 @@ export class ProfilePage {
   path: string = '';
   profileImage: any = null;
   loading: boolean = false;
+  blobData: any = null;
 
-  constructor(
+  constructor(private camera: Camera,
+    private alertController: AlertController,
+    private sanitizer: DomSanitizer,
     private authService: AuthService,
     private router: Router,
     private http: HttpClient,
@@ -38,6 +44,7 @@ export class ProfilePage {
       // If saving changes, check for modifications and upload if necessary
       if (this.isUserDataModified()) {
         this.uploadUserData();
+        
       }
     } else {
       // If switching to edit mode, create a copy of the original user data
@@ -51,15 +58,15 @@ export class ProfilePage {
       this.user.username !== this.originalUserData.username ||
       this.user.email !== this.originalUserData.email ||
       this.user.password !== this.originalUserData.password ||
-      this.file !== null
+      this.blobData !== null
     );
   }
 
   async uploadUserData() {
     this.loading = true;
-    if(this.file){
+    if(this.blobData){
       const ref = this.fireStorage.ref(this.path);
-      await this.fireStorage.upload(this.path, this.file);
+      await this.fireStorage.upload(this.path, this.blobData);
       this.profileImage = await ref.getDownloadURL().toPromise();
       this.user.image = this.profileImage;
       const data = {
@@ -114,11 +121,45 @@ export class ProfilePage {
     this.editMode = false;
   }
 
-  onFileChanged(event: any) {
-    this.file = event.target.files[0];
-    if (this.file) {
-      this.path = `yt/${this.file.name}`;
+  async takePhoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+  
+    try {
+      this.image = await this.camera.getPicture(options);
+      this.blobData = this.dataURItoBlob('data:image/jpeg;base64,' + this.image);
+      this.path = `yt/${this.user.username}_profile_picture.jpg`;
+      
+      const uploadTask = this.fireStorage.upload(this.path, this.blobData);
+      await uploadTask.then(async () => {
+        const uploadtask =  await this.fireStorage.upload(this.path,this.blobData);
+        this.profileImage = await uploadtask.ref.getDownloadURL();
+        
+      });
+    } catch (error) {
+      console.error('Error taking picture:', error);
     }
+  }
+  
+  
+
+
+  // Función para convertir data URI a Blob
+  dataURItoBlob(dataURI: string): Blob {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+  
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+  
+    return new Blob([ab], { type: mimeString });
   }
 
   ngOnInit(): void {}

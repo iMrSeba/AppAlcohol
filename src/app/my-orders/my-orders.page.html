@@ -8,10 +8,10 @@
   <ion-list>
     <ion-item *ngFor="let order of orders">
       <ion-label>
-        <h2>{{ order.stringList}}</h2>
-        <p>{{ order.priceTotal }}</p>
-        <p>{{ order.stringList}}</p>
-        <p>{{ order.userId}}</p>
+        <h2>{{ 'Orden ' + order.orderId }}</h2>
+        <p><strong>Productos:</strong> {{ order.stringList }}</p>
+        <p><strong>Total:</strong> {{ order.priceTotal | currency: 'USD' }}</p>
+        <p><strong>Usuario:</strong> {{ order.userId }}</p>
       </ion-label>
       <!-- Puedes agregar más elementos, como botones, iconos, etc., según tus necesidades -->
     </ion-item>
